@@ -1,0 +1,215 @@
+{
+    "itemList": [
+      {
+        "type": "horizontalScrollCard",
+        "data": {
+          "dataType": "HorizontalScrollCard",
+          "itemList": [
+            {
+              "type": "banner2",
+              "data": {
+                "dataType": "Banner",
+                "id": 299,
+                "title": "",
+                "description": "",
+                "image": "http://img.kaiyanapp.com/0a21eb5fc236cab231b94ba3471642ca.jpeg?imageMogr2/quality/60/format/jpg",
+                "actionUrl": "eyepetizer://webview/?title=%E8%BF%99%E6%98%AF%E4%B8%80%E4%BB%BD%E5%80%BC%E5%BE%97%E6%94%B6%E8%97%8F%E7%9A%84%E7%89%87%E5%8D%95&url=http%3A%2F%2Fwww.eyepetizer.net%2Farticle.html%3Fnid%3D1061%26shareable%3Dtrue",
+                "adTrack": null,
+                "shade": false,
+                "label": {
+                  "text": null,
+                  "card": null,
+                  "detail": null
+                }
+              }
+            }
+          ],
+          "count": 1
+        }
+      },
+      {
+        "type": "textHeader",
+        "data": {
+          "dataType": "TextHeader",
+          "text": "近期热门",
+          "font": "bold",
+          "adTrack": null
+        }
+      },
+      {
+        "type": "video",
+        "data": {
+          "dataType": "VideoBeanForClient",
+          "id": 14796,
+          "title": "震撼你的视野新版行星及恒星的大小对比",
+          "description": "该视频展现了行星及恒星的大小对比！整个画面十分震撼，人类，不太阳系真的太渺小了！",
+          "provider": {
+            "name": "PGC",
+            "alias": "PGC",
+            "icon": ""
+          },
+          "category": "科普",
+          "author": {
+            "id": 400,
+            "icon": "http://img.kaiyanapp.com/1c4b7194935f0351cde3916e35479e1f.jpeg?imageMogr2/quality/60/format/jpg",
+            "name": "天文一族",
+            "description": "专注于对宇宙、太空、星系等天文科学知识的分享及科普！",
+            "link": "",
+            "latestReleaseTime": 1488258461000,
+            "videoNum": 23,
+            "adTrack": null,
+            "follow": {
+              "itemType": "author",
+              "itemId": 400,
+              "followed": false
+            },
+            "authorType": "NORMAL"
+          },
+          "cover": {
+            "feed": "http://img.kaiyanapp.com/3586a5420e4803557e221d5ebaeb8d04.png?imageMogr2/quality/60/format/jpg",
+            "detail": "http://img.kaiyanapp.com/3586a5420e4803557e221d5ebaeb8d04.png?imageMogr2/quality/60/format/jpg",
+            "blurred": "http://img.kaiyanapp.com/cee6447d64899aeba600fc91a2081d7a.jpeg?imageMogr2/quality/60/format/jpg",
+            "sharing": null
+          },
+          "playUrl": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=default&source=ucloud",
+          "duration": 378,
+          "webUrl": {
+            "raw": "http://www.eyepetizer.net/detail.html?vid=14796",
+            "forWeibo": "http://wandou.im/3m62x5"
+          },
+          "releaseTime": 1488162878000,
+          "playInfo": [
+            {
+              "height": 480,
+              "width": 854,
+              "urlList": [
+                {
+                  "name": "ucloud",
+                  "url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=normal&source=ucloud"
+                },
+                {
+                  "name": "qcloud",
+                  "url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=normal&source=qcloud"
+                }
+              ],
+              "name": "标清",
+              "type": "normal",
+              "url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=normal&source=ucloud"
+            },
+            {
+              "height": 720,
+              "width": 1280,
+              "urlList": [
+                {
+                  "name": "ucloud",
+                  "url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=high&source=ucloud"
+                },
+                {
+                  "name": "qcloud",
+                  "url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=high&source=qcloud"
+                }
+              ],
+              "name": "高清",
+              "type": "high",
+              "url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=14796&editionType=high&source=ucloud"
+            }
+          ],
+          "consumption": {
+            "collectionCount": 426,
+            "shareCount": 454,
+            "replyCount": 15
+          },
+          "campaign": null,
+          "waterMarks": null,
+          "adTrack": null,
+          "tags": [],
+          "type": "NORMAL",
+          "idx": 0,
+          "shareAdTrack": null,
+          "favoriteAdTrack": null,
+          "webAdTrack": null,
+          "date": 1488162878000,
+          "promotion": null,
+          "label": null,
+          "collected": false,
+          "played": false
+        }
+      },
+      {
+        "type": "squareCardCollection",
+        "data": {
+          "dataType": "ItemCollection",
+          "header": {
+            "id": 2,
+            "title": "热门排行",
+            "font": "bold",
+            "cover": null,
+            "label": null,
+            "actionUrl": "eyepetizer://ranklist/"
+          },
+          "itemList": [
+            {
+              "type": "squareCard",
+              "data": {
+                "dataType": "SquareCard",
+                "id": 1,
+                "title": "",
+                "image": "http://img.kaiyanapp.com/5992fbf7468c2174a31fb7b438ebd414.jpeg?imageMogr2/quality/60",
+                "actionUrl": "eyepetizer://ranklist/?type=Weekly",
+                "shade": false,
+                "adTrack": null
+              }
+            },
+            {
+              "type": "squareCard",
+              "data": {
+                "dataType": "SquareCard",
+                "id": 2,
+                "title": "",
+                "image": "http://img.kaiyanapp.com/33a59b02f3d8e57831844b54771f72d6.jpeg?imageMogr2/quality/60",
+                "actionUrl": "eyepetizer://ranklist/?type=Monthly",
+                "shade": false,
+                "adTrack": null
+              }
+            },
+            {
+              "type": "squareCard",
+              "data": {
+                "dataType": "SquareCard",
+                "id": 3,
+                "title": "",
+                "image": "http://img.kaiyanapp.com/9fb34512de6d12a6b22d821079d06ff3.jpeg?imageMogr2/quality/60",
+                "actionUrl": "eyepetizer://ranklist/?type=Historical",
+                "shade": false,
+                "adTrack": null
+              }
+            },
+            {
+              "type": "actionCard",
+              "data": {
+                "dataType": "ActionCard",
+                "id": 0,
+                "text": "查看全部",
+                "actionUrl": "eyepetizer://ranklist/",
+                "adTrack": null
+              }
+            }
+          ],
+          "count": 4,
+          "adTrack": null
+        }
+      },
+      {
+        "type": "textHeader",
+        "data": {
+          "dataType": "TextHeader",
+          "text": "最新发布",
+          "font": "bold",
+          "adTrack": null
+        }
+      }
+    ],
+    "count": 4,
+    "total": 0,
+    "nextPageUrl": null
+  }
