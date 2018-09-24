@@ -43,7 +43,7 @@ export default {
         //   })
         this.axios.get('https://www.easy-mock.com/mock/5ba886d083dbde41b0055cb8/demoVueData/mock')
           .then((res)=>{
-           console.log(res)
+           console.log(res+"")
          })
           
     }
