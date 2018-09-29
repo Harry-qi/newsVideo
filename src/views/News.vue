@@ -39,6 +39,15 @@ export default {
       this.titleData = img.hotEvents.title
 
       // console.log(img)
+    },
+    created(){
+        this.$axios({
+            method:"get",
+            baseURL:"/api",
+            url:"https://interface.meiriyiwen.com/article/today?dev=1"
+        }).then((res)=>{
+            console.log(res)
+        })
     }
 }
 </script>

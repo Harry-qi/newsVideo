@@ -4,9 +4,15 @@
     <router-view></router-view>
     <div class="navContainer">
         <div id="nav">
+            <router-link to="/everyday">
+                <div class="navBox">
+                  <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon3.jpg" class="navImg">
+                  <img v-else src="../src/assets/icon33.jpg" class="navImg">
+                  <span class="navItem">每日</span>
+                </div>
+            </router-link>
             <router-link to="/">
                 <div class="navBox">
-
                   <img v-if="picked" dateId="222" @click="chnagesMuen" src="../src/assets/icon1.jpg" class="navImg">
                   <img v-else src="../src/assets/icon11.jpg" class="navImg">
                   <span class="navItem">作品案例</span>
@@ -17,13 +23,6 @@
                   <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon2.jpg" class="navImg">
                   <img v-else src="../src/assets/icon22.jpg" class="navImg">
                   <span class="navItem">新闻花絮</span>
-                </div>
-            </router-link>
-            <router-link to="/my">
-                <div class="navBox">
-                  <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon3.jpg" class="navImg">
-                  <img v-else src="../src/assets/icon33.jpg" class="navImg">
-                  <span class="navItem">我的</span>
                 </div>
             </router-link>
         </div>
@@ -51,7 +50,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
