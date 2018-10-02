@@ -4,7 +4,7 @@
     <router-view></router-view>
     <div class="navContainer">
         <div id="nav">
-            <router-link to="/everyday">
+            <router-link to="/">
                 <div class="navBox">
                   <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon3.jpg" class="navImg">
                   <img v-else src="../src/assets/icon33.jpg" class="navImg">

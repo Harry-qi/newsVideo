@@ -44,6 +44,8 @@ export default {
     text-indent: 2rem;
     line-height: 30px;
     margin-bottom: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 </style>
 
