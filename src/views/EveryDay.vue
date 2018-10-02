@@ -1,18 +1,25 @@
 <template>
     <div class="everyday">
-        <div class="loading" v-show="loading">加载中...</div>
+        <div class="loading" v-show="loading">
+            <!-- loading图 -->
+            <div class="roataqx-loader">
+                <div class="one"></div>
+                <div class="two"></div>
+                <div class="three"></div>
+            </div>
+        </div>
         <div class="imgBox" v-show="!loading">
-            <img :src="redomImg" alt="" id="img">
+            <img :src="redomImgSrc" alt="" id="img">
             <span>随机图片</span>
         </div>
         <h1>{{title}}</h1>
         <span class="author">{{author}}</span>
         <p class="digest">{{digest}}</p>
-        <router-link :to='"/articledetail/"+fullDate'>
-            <span class="more" :fulldate="fullDate">more...</span>
-        </router-link>
-        <router-link :to='"/articledetail/"+prefulldate'>
-            <span class="pre" :fulldate='prefulldate'>昨天文章</span>
+            <router-link :to="{name:'articledetail',params:{date:fullDate}}">   
+                <span class="more" :fulldate="fullDate">more...</span>
+            </router-link>
+        <router-link :to="{name:'articledetail',params:{date:prefulldate}}">
+            <span class="pre" :fulldate='prefulldate'>昨日佳文</span>
         </router-link>
     </div>
 </template>
@@ -26,7 +33,7 @@ export default {
             author:'',//作者
             digest:'',//摘要
             // content:"",
-            redomImg:"",
+            redomImgSrc:"",
             loading: true,
             fullDate:'', //日期
             prefulldate:''
@@ -35,25 +42,16 @@ export default {
     beforecreate(){
         this.loading = true
     },
-    created(){
+    mounted(){
         // 生成随机图片
-        this.loading = false
         let redomNum = Math.floor(Math.random()*20)
-        this.redomImg = redomImg.links[redomNum].url
-
-        // 获取每日一文
-        this.$axios({
-            method:"get",
-            baseURL:"/api",
-            url:"https://interface.meiriyiwen.com/article/today?dev=1"
-        }).then((res)=>{
-            // console.log(res.data.data)
-            this.title = res.data.data.title
-            this.author = res.data.data.author
-            this.digest = res.data.data.digest
-            // this.content = res.data.data.content
-        })
-          
+        let newImg = new Image()
+        newImg.src = redomImg.links[redomNum].url
+        // 图片加载完成后 结束loading
+        newImg.onload=()=>{
+            this.loading = false
+            this.redomImgSrc = newImg.src
+        }
         //获得今天的日期
         let date = new Date()
         let year = date.getFullYear() +''
@@ -67,6 +65,19 @@ export default {
         let predaytrans = preday<10? "0"+preday :preday + ''
         let prefulldate = year+mouth+predaytrans
         this.prefulldate = prefulldate
+        // 获取每日一文
+        this.$axios({
+            method:"get",
+            url:"/readapi/article/day?dev=1&date="+this.fullDate
+        }).then((res)=>{
+            // console.log(res.data.data)
+            this.title = res.data.data.title
+            this.author = res.data.data.author
+            this.digest = res.data.data.digest
+            // this.content = res.data.data.content
+        })
+          
+
     }
 }
 </script>
@@ -91,9 +102,10 @@ export default {
     width: 100%;
 }
 .loading{
-    font-size: 16px;
-    color: #333;
-    text-align: center
+    width: 64px;
+    height: 264px;
+    margin:0 auto;
+    position: relative;
 }
 .everyday h1 {
     font-size: 16px;
@@ -125,17 +137,86 @@ export default {
     display: block;
     text-align: right;
     padding-right: 20px;
-    color: #175199
+    color: #333
 }
 .pre{
     display: block;
     text-align: center;
     width: 100px;
     height: 20px;
-    border: 1px solid #eee;
+    border: 1px solid #1a1a1a;
     border-radius: 25px;
     margin: 20px auto 100px;
+    color: #1a1a1a
 }
+/* loading图*/
+
+.roataqx-loader {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  perspective: 800px;
+  position: absolute;
+  top: 50%;
+  margin-top: -32px;
+}
+
+.roataqx-loader > div {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;  
+}
+
+.roataqx-loader .one {
+  left: 0%;
+  top: 0%;
+  animation: rotate-one 1s linear infinite;
+  border-bottom: 3px solid #000;
+}
+
+.roataqx-loader .two {
+  right: 0%;
+  top: 0%;
+  animation: rotate-two 1s linear infinite;
+  border-right: 3px solid #000;
+}
+
+.roataqx-loader .three {
+  right: 0%;
+  bottom: 0%;
+  animation: rotate-three 1s linear infinite;
+  border-top: 3px solid #000;
+}
+
+@keyframes rotate-one {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-two {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-three {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
+}
+  
 </style>
 
 

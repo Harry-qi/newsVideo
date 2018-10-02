@@ -26,18 +26,13 @@ export default {
     mounted(){
         this.$axios({
             method:"get",
-            baseURL:"/api",
-            url:"https://interface.meiriyiwen.com/article/day?dev=1&date="+this.$route.params.date
+            url:"/readapi/article/day?dev=1&date="+this.$route.params.date
         })
         .then((res)=>{
             this.title = res.data.data.title
             this.author = res.data.data.author
-            this.articleDetail = res.data.data.content
-            // console.log(res.data.data) 
-            
+            this.articleDetail = res.data.data.content 
         })
-        // console.log(this.$route)
-        console.log(this.fulldateson)
         
     }
 }

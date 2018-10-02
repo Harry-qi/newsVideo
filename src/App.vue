@@ -8,21 +8,21 @@
                 <div class="navBox">
                   <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon3.jpg" class="navImg">
                   <img v-else src="../src/assets/icon33.jpg" class="navImg">
-                  <span class="navItem">每日</span>
+                  <span class="navItem">read</span>
                 </div>
             </router-link>
-            <router-link to="/">
+            <router-link to="/video">
                 <div class="navBox">
                   <img v-if="picked" dateId="222" @click="chnagesMuen" src="../src/assets/icon1.jpg" class="navImg">
                   <img v-else src="../src/assets/icon11.jpg" class="navImg">
-                  <span class="navItem">作品案例</span>
+                  <span class="navItem">video</span>
                 </div>
             </router-link>
             <router-link to="/news">
                 <div class="navBox">
                   <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon2.jpg" class="navImg">
                   <img v-else src="../src/assets/icon22.jpg" class="navImg">
-                  <span class="navItem">新闻花絮</span>
+                  <span class="navItem">news</span>
                 </div>
             </router-link>
         </div>
@@ -60,7 +60,8 @@ export default {
   height: 60px;
   position:fixed;
   bottom: 0;
-  background: #fff
+  background: #fff;
+  z-index: 99999
 }
 #nav {
   width: 100%;

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/ProductCase.vue'
+import EveryDay from './views/EveryDay.vue'
 
 Vue.use(Router)
 
@@ -9,9 +9,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'productCase',
-      component: Home
+      path: '/everyday',
+      name: 'everyday',
+      component: EveryDay
     },
     {
       path: '/news',
@@ -22,14 +22,24 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/News.vue')
     },
     {
-      path: '/everyday',
-      name: 'everyday',
-      component: () => import('./views/EveryDay.vue')
+      path: '/video',
+      name: 'video',
+      component: () => import('./views/Video.vue')
     },
     {
       path: '/articledetail/:date',
       name: 'articledetail',
       component: () => import('./views/ArticleDetail.vue')
+    },
+    {
+      path: '/videoDetail/:id',
+      name: 'videoDetail',
+      component: () => import('./views/VideoDetail.vue')
+    },
+    {
+      path: '/newsdetail/:id',
+      name: 'newsdetail',
+      component: () => import('./views/NewsDetail.vue')
     }
   ]
 })
