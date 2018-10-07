@@ -1,14 +1,16 @@
 <template>
-  <div class="video">
-          <div class="videoBox" v-for="video in allvideo" >
+  <div class="video" @scroll.native="scrollHandler">
+          <div class="videoBox" v-for="video in allvideo" :key>
               <div class="video-img-Box" >
-                 <video :src="video.data.playUrl" controls="controls" preload='none' :poster='video.data.cover.detail'></video>
+                 <video :src="video.data.playUrl"  controls="controls" preload='none' ></video>
                  <!-- <i class="iconfont icon-bofang" v-show="show"></i> -->
               </div>               
               <div class="title">
                   <span v-html="video.data.title"></span>
               </div>
-              <!-- <video :src=".playUrl" style="width:100%;height:200px"></video> -->
+          </div>
+          <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            上划显示更多
           </div>
   </div>
 </template>
@@ -18,35 +20,70 @@ import Title from '../components/Title'
 export default {
   data(){
     return {
-        allvideo:[],
-        // show:true
+        addDate: 1,
+        allvideo: [],
+        alltextHeader:[],
+        videoCollectionWithCover:[],
+        videoCollectionOfFollow:[],
+        busy: false,
+        todayDate:0,
     }
   },
    components:{
      Title
    },
    methods:{
-    //    seevideo: function(){
-    //        this.show = !this.show
-
-    //    }
+       loadMore: function() {
+           var count = 0;
+            this.busy = true;
+            setTimeout(() => {
+                this.addDate++;
+                this.getVideo()
+                this.busy = false;
+                }, 1000);
+        },
+        getVideo(){
+            let curDate  = new Date()
+            let preDate  = new Date(curDate.getTime() - 24*60*60*1000*(this.addDate)).getTime();
+            this.$axios({
+                method: "GET",
+                url: "/videoapi/api/v4/tabs/selected?date="+preDate+"&num=2&page=2"
+            }).then((res=>{
+                let video = res.data.itemList.filter(function(element){
+                    return element.type == "video"
+                })
+                for(let i=0;i<video.length;i++){
+                    this.allvideo.push(video[i])
+                }
+                console.log(this.allvideo)
+            }))
+        },
+        getInitData(){
+            this.$axios({
+                method:"get",
+                url:"/videoapi/api/v4/tabs/selected?date="+this.todayDate+"&num=2&page=1"
+            }).then((res)=>{
+                // console.log(res.data)
+                this.allvideo = res.data.itemList.filter(function(element){
+                    return element.type == "video"
+                })
+                this.alltextHeader =  res.data.itemList.filter(function(element){
+                    return element.type=='textHeader'
+                })
+                this.videoCollectionWithCover =  res.data.itemList.filter(function(element){
+                    return element.type=='videoCollectionWithCover'
+                })
+                this.videoCollectionOfFollow =  res.data.itemList.filter(function(element){
+                    return element.type=='videoCollectionOfFollow'
+                })
+            }) 
+        }
     },
     created(){
-        this.$axios({
-            method:"get",
-            url:"/videoapi/api/v4/tabs/selected"
-        }).then((res)=>{
-            console.log(res.data.itemList)
-            this.allvideo = res.data.itemList
-            // 返回数据部分有问题
-            this.allvideo.splice(0,1)
-            this.allvideo.splice(5,1)
-            this.allvideo.splice(5,1)
-            this.allvideo.splice(5,1)
-            this.allvideo.splice(5,1)
-            this.allvideo.splice(10,1)
-
-        })
+        this.getInitData()
+        let date = new Date()
+        let todayDate = date.getTime()
+        this.todayDate = todayDate
     }
 }
 </script>
@@ -68,6 +105,9 @@ export default {
     text-align: center;
     height: 40px;
     line-height: 40px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
 }
 .video-img-Box {
     position: relative;

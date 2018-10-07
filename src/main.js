@@ -4,7 +4,8 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import Axios from 'axios'
-
+import infiniteScroll from 'vue-infinite-scroll'
+Vue.use(infiniteScroll)
 Vue.prototype.$axios = Axios
 Vue.config.productionTip = false
 

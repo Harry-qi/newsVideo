@@ -1,6 +1,5 @@
 module.exports = {
   devServer:{
-        // host:"http://192.168.137.1",
         // 跨域设置
         proxy: {
             '/readapi':{

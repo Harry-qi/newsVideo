@@ -28,7 +28,7 @@ export default {
             url:'/newsapi/api/v1/last-stories'
         })
         .then((res)=>{
-            console.log(res.data.STORIES.stories)
+            // console.log(res.data.STORIES.stories)
             this.news = res.data.STORIES.stories
         })
         this.imgSrc = 'https://placeimg.com/340/200/any'

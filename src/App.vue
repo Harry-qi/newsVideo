@@ -1,7 +1,10 @@
 <template>
 <!-- import func from './vue-temp/vue-editor-bridge'; -->
   <div id="app">
-    <router-view></router-view>
+    <transition name="fade">
+          <router-view></router-view>
+    </transition>  
+
     <div class="navContainer">
         <div id="nav">
             <router-link to="/">
@@ -92,6 +95,19 @@ export default {
 }
 a{
   text-decoration: none
+}
+.fade-enter {
+  opacity:0;
+}
+.fade-leave{
+  opacity:1;
+}
+.fade-enter-active{
+  transition:opacity .5s;
+}
+.fade-leave-active{
+  opacity:0;
+  transition:opacity .5s;
 }
 </style>
 
