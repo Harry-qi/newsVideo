@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .articledetail h1{
     font-size: 21px;
     text-align: center;

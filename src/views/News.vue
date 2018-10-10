@@ -1,6 +1,6 @@
 <template>
     <div class="news">
-        <div class="newsBox" v-for="newsItem in news">
+        <div class="newsBox" v-for="(newsItem,index) in news" :key="index">
             <router-link :to="{name:'newsdetail',params:{id:newsItem.id}}">
                 <h2>{{newsItem.title}}</h2>
                 <img :src="imgSrc" alt="">
@@ -10,7 +10,7 @@
     </div>
 </template>
 
-<script>
+<script scoped>
 import Title from "../components/Title"
 export default {
     data(){

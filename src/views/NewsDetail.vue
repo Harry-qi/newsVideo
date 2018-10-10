@@ -22,12 +22,12 @@ export default {
             // console.log(res.data.CONTENTS.body)
             this.articleDetail = res.data.CONTENTS.body
         })
-        console.log(document.querySelectorAll('.question img')) 
+        // console.log(document.querySelectorAll('.question img')) 
     }
 }
 </script>
 
-<style>
+<style scoped>
 .newsdetail h1{
     font-size: 21px;
     text-align: center;

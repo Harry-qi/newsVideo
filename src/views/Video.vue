@@ -1,17 +1,29 @@
 <template>
   <div class="video" @scroll.native="scrollHandler">
-          <div class="videoBox" v-for="video in allvideo" :key>
-              <div class="video-img-Box" >
+          <div class="videoContainer" v-for="(video,index) in allvideo" :key="index" @click="showVideo(index)">
+              <div class="videoBox" v-if="curIndex==index">
                  <video :src="video.data.playUrl"  controls="controls" preload='none' ></video>
-                 <!-- <i class="iconfont icon-bofang" v-show="show"></i> -->
-              </div>               
+              </div>     
+              <div class="videoImgBox" v-else>
+                    <i class="iconfont icon-bofang"></i>
+                    <img :src="video.data.cover.detail" alt="">
+              </div>          
               <div class="title">
                   <span v-html="video.data.title"></span>
               </div>
           </div>
-          <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-            上划显示更多
+          <div class="tip" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+              加载中
+            <!-- loading -->
+            <div class="loading">
+                <div class="ball-pulse" >
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
           </div>
+
   </div>
 </template>
 
@@ -27,14 +39,17 @@ export default {
         videoCollectionOfFollow:[],
         busy: false,
         todayDate:0,
+        curIndex:-1,
     }
   },
    components:{
      Title
    },
    methods:{
+       showVideo: function(index){
+           this.curIndex = index
+       },
        loadMore: function() {
-           var count = 0;
             this.busy = true;
             setTimeout(() => {
                 this.addDate++;
@@ -55,7 +70,7 @@ export default {
                 for(let i=0;i<video.length;i++){
                     this.allvideo.push(video[i])
                 }
-                console.log(this.allvideo)
+                // console.log(this.allvideo)
             }))
         },
         getInitData(){
@@ -63,7 +78,7 @@ export default {
                 method:"get",
                 url:"/videoapi/api/v4/tabs/selected?date="+this.todayDate+"&num=2&page=1"
             }).then((res)=>{
-                // console.log(res.data)
+                console.log(res.data)
                 this.allvideo = res.data.itemList.filter(function(element){
                     return element.type == "video"
                 })
@@ -76,7 +91,8 @@ export default {
                 this.videoCollectionOfFollow =  res.data.itemList.filter(function(element){
                     return element.type=='videoCollectionOfFollow'
                 })
-            }) 
+              
+            })
         }
     },
     created(){
@@ -88,18 +104,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .video{
     margin-bottom: 90px;
 }
-.videoBox{
+.videoContainer{
   padding:10px 2px 2px 2px;
   border: 1px solid #eee;
-  padding-top: 20px
+  padding-top: 20px;
+  position: relative;
+  width: 100%;
 }
-.videoBox img{
+.videoContainer img{
   width: 100%;
   height: 188px;
+}
+.videoContainer video{
+    width: 100%;
+    height: 188px
 }
 .title {
     text-align: center;
@@ -109,17 +131,20 @@ export default {
     text-overflow:ellipsis;
     white-space:nowrap
 }
-.video-img-Box {
-    position: relative;
-    padding-left: 10px;
-    padding-right: 10px;
+.videoBox {
+    width: 100%;
+    height: 186px;
 }
-.video-img-Box img{
+.videoImgBox img{
     border-radius: 10px;
 }
 .video-img-Box video{
     width: 100%;
     height: 188px
+}
+.videoImgBox{
+    width: 100%;
+    height: 186px;    
 }
 .icon-bofang{
     position: absolute;
@@ -130,6 +155,64 @@ export default {
     font-size: 30px;
     font-weight: 100
 }
+/*loading*/
+.tip{
+    text-align: center
+}
+.ball-pulse {
+  transform: scale(1);
+  /* margin: 0 auto;
+  width: 65px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%) */
+}
+
+.ball-pulse > div:nth-child(1) {
+  -webkit-animation: ball-pulse-scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+  animation: ball-pulse-scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+}
+
+.ball-pulse > div:nth-child(2) {
+  -webkit-animation: ball-pulse-scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+  animation: ball-pulse-scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+}
+
+.ball-pulse > div:nth-child(3) {
+  -webkit-animation: ball-pulse-scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+  animation: ball-pulse-scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+}
+
+.ball-pulse > div {
+  background-color: #B1AFAE;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+}
+
+@keyframes ball-pulse-scale {
+  0% {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  }
+  45% {
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+    opacity: 0.7;
+  }
+  80% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+  
 </style>
 
 
