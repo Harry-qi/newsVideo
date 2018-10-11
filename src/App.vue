@@ -43,7 +43,7 @@ export default {
   },
   methods:{
   chnagesMuen: function (e){
-        console.log(e.target.parentNode.firstChild)
+        // console.log(e.target.parentNode.firstChild)
       }
     }
   }
@@ -108,6 +108,9 @@ a{
 .fade-leave-active{
   opacity:0;
   transition:opacity .5s;
+}
+*{
+  box-sizing: border-box
 }
 </style>
 
