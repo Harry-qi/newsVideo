@@ -1,5 +1,6 @@
 <template>
   <div class="video" @scroll.native="scrollHandler">
+        <!-- 轮播图 -->
         <swiper :options="swiperOption" ref="mySwiper" class="swiper">
             <!-- slides -->
             <swiper-slide v-for="(item,index) in horizontalScrollCard" :key="index" class="swiperSlide">
@@ -8,13 +9,30 @@
             <!-- Optional controls -->
             <div class="swiper-pagination"  slot="pagination"></div>
         </swiper>
+        <!-- 热门分类 -->
         <h2 class="categoryH">热门分类</h2>
         <ul class="category">
             <li v-for="(categoryItem, index) in category" :key="index">
-              <span># {{categoryItem.data.header.title}}</span> 
-              <p>{{categoryItem.data.header.subTitle}}</p>
+                <router-link :to="{name:'categoryDetail',params:{id:categoryItem.id}}">
+                    <div class="category-img-container">
+                        <img :src="categoryItem.bgPicture" alt="">
+                    </div>
+                    <div class="category-info-container">
+                        <span># {{categoryItem.name}}</span> 
+                        <p>{{categoryItem.description}}</p>
+                    </div>
+                </router-link>
+
             </li>
         </ul>
+        <div class="category-more-link-box">
+            <router-link to="allCategory" class="category-more-link">
+                <span>查看全部分类</span>
+                <span>&gt;</span>
+            </router-link>
+        </div>
+
+        <!-- 视频 -->
           <div class="videoContainer" v-for="(video,index) in allvideo" :key="index" @click="showVideo(index)">
               <div class="videoBox" v-if="curIndex==index">
                  <video :src="video.data.playUrl" :poster="video.data.cover.detail" controls="controls" preload='none' ></video>
@@ -59,6 +77,7 @@ export default {
         curIndex:-1,
         horizontalScrollCard:[],
         category:[],
+        categoryId:0,
         swiperOption: {
           direction : 'horizontal',
           slidesPerView : 1.07,
@@ -104,6 +123,14 @@ export default {
                 }
             }))
         },
+        //Fisher–Yates shuffle 洗牌算法
+        shuffle(arrs) {
+            for (let i = arrs.length - 1; i > 0; i -= 1) {
+                const random = Math.floor(Math.random() * (i + 1));
+                [arrs[random], arrs[i]] = [arrs[i], arrs[random]];
+            }
+            return arrs
+        },
         //初始化数据
         getInitData(){
             //轮播图数据
@@ -116,13 +143,18 @@ export default {
                     return element.type == "horizontalScrollCard"
                 })
                 this.horizontalScrollCard = filterIteam[0].data.itemList
-            })    
+            })
+            //分类    
             this.$axios({
                 methods: "GET",
-                url:"/videoapi/api/v4/discovery/category"
+                url:"/videoapi/api/v4/categories/"
             })  
             .then((res)=>{
-                this.category = res.data.itemList
+                //随机选取三个分类
+                console.log(res.data)
+                this.shuffle(res.data)
+                let sliceCategory = res.data.slice(1,4)
+                this.category = sliceCategory
             })
             //视频数据      
             this.$axios({
@@ -274,20 +306,51 @@ export default {
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.category li{
+.category li a{
     width: 100%;
-    height: 50px;
+    height: 75px;
     border-bottom: .5px solid #eee;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.category-img-container{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.category-img-container img{
+    width: 100%;
+    border-radius: 5px;
 }
 .category li span{
     color: #333;
     font-size: 16px;
-    font-weight: bold
+    font-weight: bold;
+    height: 25px;
+    display: block;
 }
 .category li p{
     color: rgb(188, 179, 179);
     font-size: 12px;
+}
+.category-more-link-box{
+    width: 100%;
+    height: 30px;
+    text-align: right;
+    margin: 20px 0;
+}
+.category-more-link{
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+}
+.category-more-link span:first-child{
+    margin-right: 10px;
+}
+.category-more-link span:last-child{
+    color: #eee
 }
 </style>
 

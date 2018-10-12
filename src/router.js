@@ -6,7 +6,7 @@ import video from './views/Video.vue'
 import articledetail from './views/ArticleDetail.vue'
 import videoDetail from './views/VideoDetail.vue'
 import newsdetail from './views/NewsDetail.vue'
-
+import categoryDetail from './views/CategoryDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +45,11 @@ export default new Router({
       path: '/newsdetail/:id',
       name: 'newsdetail',
       component: newsdetail
+    },
+    {
+      path: '/categoryDetail/:id',
+      name: 'categoryDetail',
+      component: categoryDetail
     }
   ]
 })
