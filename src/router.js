@@ -7,6 +7,10 @@ import articledetail from './views/ArticleDetail.vue'
 import videoDetail from './views/VideoDetail.vue'
 import newsdetail from './views/NewsDetail.vue'
 import categoryDetail from './views/CategoryDetail'
+import categoryIndex from './views/categoryIndex'
+import categoryAll from './views/categoryAll'
+import categoryAuthor from './views/categoryAuthor'
+import categoryAlbum from './views/categoryAlbum'
 Vue.use(Router)
 
 export default new Router({
@@ -49,7 +53,26 @@ export default new Router({
     {
       path: '/categoryDetail/:id',
       name: 'categoryDetail',
-      component: categoryDetail
-    }
+      component: categoryDetail,
+      children:
+        [{
+          path: '/categoryIndex',
+          name: 'categoryIndex',
+          component: categoryIndex
+        },{
+          path: '/categoryAll',
+          name: 'categoryAll',
+          component: categoryAll          
+        },{
+          path: '/categoryAuthor',
+          name: 'categoryAuthor',
+          component: categoryAuthor          
+        },{
+          path: '/categoryAlbum',
+          name: 'categoryAlbum',
+          component: categoryAlbum          
+        }
+        ]
+    },
   ]
 })

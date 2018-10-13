@@ -1,0 +1,127 @@
+<template>
+    <div class="categoryIndex">
+        <div class="recently">
+            <h3>{{recently}}</h3>
+            <swiper :options="swiperOption" ref="mySwiper" class="swiper">
+                <swiper-slide v-for="(item,index) in recentlyVideo" :key="index" class="video-box">
+                    <img :src="item.data.cover.detail" alt="" v-if="show">
+                    <div class="recently-info">
+                        <div>
+                            <img :src="item.data.author.icon" alt="">
+                        </div>
+                        <div>
+                            <h4>{{item.data.author.description}}</h4>
+                            <p>
+                                <span>{{item.data.author.name}} &nbsp;&nbsp;/&nbsp;&nbsp; </span>
+                                <span>#{{item.data.category}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </swiper-slide>
+            </swiper>
+        </div>    
+        <div class="popular">
+            <h3>{{popular}}</h3>
+            <!-- <video src="" controls="controls" preload='none'></video> -->
+        </div>
+    </div>
+</template>
+<script>
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+export default {
+    name:"categoryIndex",
+    data(){
+        return{
+            recently:'',
+            popular:'',
+            show:true,
+            recentlyVideo:[],
+            swiperOption: {
+                direction : 'horizontal',
+                slidesPerView : 1.08,
+                spaceBetween : 10,
+            }
+        }
+    },
+    mounted(){
+        this.$axios({
+            methods:'get',
+            url:'/videoapi/api/v4/categories/detail/index?id=8'
+        })
+        .then((res)=>{
+            console.log(res.data.itemList)
+            this.recently = res.data.itemList[0].data.header.title
+            this.recentlyVideo = res.data.itemList[0].data.itemList
+        })
+    }
+}
+</script>
+<style scoped lang="scss" type="text/css">
+.recently {
+    width: 100%;
+    padding-left: 10px;
+    h3{
+        font-size: 21px;
+        color: #333;
+        font-weight: bold;
+        position: relative;
+        width: 110px;
+        height: 20px;
+        line-height: 20px;
+        &:after{
+            content: '>';
+            color:#c9c4c4;
+            font-size: 16px;
+            position: absolute;
+            right: 0%;
+            top: 0;
+        }
+    }
+}
+.video-box{
+    width: 100%;
+    height: 245px;
+    margin: 10px 0px;
+    img{
+        width: 100%;
+        height: 186px;
+        position: relative;
+        left: 0;
+        top: 0;
+    }
+
+}
+.recently-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    div:first-child{
+        width: 90px;
+        img{
+            width: 100%;
+            height: auto;
+            border-radius: 25px;
+        }
+    }
+    div:last-child{
+        width: 285px;
+        margin-left: 10px;
+        h4{
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            height: 25px;
+            line-height: 25px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        p{
+            color: #989898;
+            font-size: 14px;
+        }
+
+    }
+}
+</style>
+
+

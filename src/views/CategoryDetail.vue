@@ -9,11 +9,21 @@
        </div>
        <nav class="category-nav">
            <ul>
-               <li v-for="(item,index) in nav" :key="index" :class="[curIndex==index ? 'navActive' : '' ]" @click="clickLink(index)">
-                      {{item.name}}
-               </li>                                           
+               <li>
+                    <router-link to="/categoryIndex" class="navLink">首页</router-link>
+               </li>   
+               <li>
+                    <router-link to="/categoryAll" class="navLink">全部</router-link>               
+               </li> 
+               <li>
+                    <router-link to="/categoryAuthor" class="navLink">作者</router-link>              
+               </li>  
+               <li>
+                    <router-link to="/categoryAlbum" class="navLink">专辑</router-link>              
+               </li>                                     
            </ul>
        </nav>
+       <router-view></router-view>
     </div>
 </template>
 <script>
@@ -25,14 +35,10 @@ export default {
             headerImage:'',
             description:'',
             name:'',
-            nav:[],
             curIndex: 0
         }
     },
     methods:{
-        clickLink: function(index){
-            this.curIndex = index
-        }
     },
     mounted(){
         this.$axios({
@@ -45,8 +51,6 @@ export default {
             this.tabInfo = res.data.tabInfo
             this.description = res.data.categoryInfo.description
             this.name = res.data.categoryInfo.name
-            this.nav = res.data.tabInfo.tabList
-            
         })
     }
 }
@@ -79,6 +83,10 @@ export default {
 .category-info-container p{
     font-size: 14px;
 }
+.category-nav{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .category-nav ul{
     list-style: none;
     display: flex;
@@ -90,7 +98,7 @@ export default {
 .category-nav li{
     position: relative;
 }
-.navActive:after{
+.router-link-exact-active:after{
     /* border-bottom: 2px solid #333; */
     content: ' ';
     color: red;
@@ -100,6 +108,9 @@ export default {
     transform: translateX(-50%);
     width: 15px;
     border-bottom: 3px solid #333;
+}
+.navLink{
+    color: #333
 }
 </style>
 

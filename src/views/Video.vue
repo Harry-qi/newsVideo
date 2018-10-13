@@ -189,9 +189,7 @@ export default {
 
 <style scoped>
 .video{
-    margin-bottom: 90px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin: 10px 0 90px 10px;
 }
 .videoContainer{
   padding:10px 2px 2px 2px;

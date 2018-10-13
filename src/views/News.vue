@@ -31,7 +31,7 @@ export default {
             // console.log(res.data.STORIES.stories)
             this.news = res.data.STORIES.stories
         })
-        this.imgSrc = 'https://placeimg.com/340/200/any'
+        this.imgSrc = 'https://placeimg.com/350/200/any'
     }
 }
 </script>
