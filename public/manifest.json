@@ -1,6 +1,6 @@
 {
-  "name": "mydemogpc",
-  "short_name": "mydemogpc",
+  "name": "myVueDemo",
+  "short_name": "myVueDemo",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
