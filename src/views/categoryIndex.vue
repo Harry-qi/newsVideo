@@ -75,6 +75,9 @@ export default {
             })
             this.popularVideo = popularVideo
         })
+        .catch(function (error) {
+            alert(error)
+        });
     }
 }
 </script>

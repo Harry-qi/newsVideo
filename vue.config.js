@@ -1,5 +1,8 @@
 module.exports = {
   devServer:{
+        // 手机端调试
+        host:'192.168.137.1',
+        port: 8080,
         // 跨域设置
         proxy: {
             '/readapi':{

@@ -1,14 +1,12 @@
 <template>
-<!-- import func from './vue-temp/vue-editor-bridge'; -->
   <div id="app">
     <transition name="fade">
           <router-view></router-view>
     </transition>  
-
     <div class="navContainer">
         <div id="nav">
-            <router-link to="/">
-                <div class="navBox">
+            <!-- <router-link to="/">
+                <div class="navBox" @click="chnagesMuen">
                   <img v-if="picked" @click="chnagesMuen" src="../src/assets/icon3.jpg" class="navImg">
                   <img v-else src="../src/assets/icon33.jpg" class="navImg">
                   <span class="navItem">read</span>
@@ -16,7 +14,7 @@
             </router-link>
             <router-link to="/video">
                 <div class="navBox">
-                  <img v-if="picked" dateId="222" @click="chnagesMuen" src="../src/assets/icon1.jpg" class="navImg">
+                  <img v-if="picked"  @click="chnagesMuen" src="../src/assets/icon1.jpg" class="navImg">
                   <img v-else src="../src/assets/icon11.jpg" class="navImg">
                   <span class="navItem">video</span>
                 </div>
@@ -27,23 +25,48 @@
                   <img v-else src="../src/assets/icon22.jpg" class="navImg">
                   <span class="navItem">news</span>
                 </div>
-            </router-link>
+            </router-link> -->
+            <router-link :to="item.link" v-for="(item,index) in nav" :key="index">
+                <div class="navBox" @click="chnagesMuen">
+                  <img v-if="picked" :src="item.src" class="navImg">
+                  <!-- <img v-else src="../src/assets/icon33.jpg" class="navImg"> -->
+                  <span class="navItem">{{item.name}}</span>
+                </div>
+            </router-link>            
         </div>
     </div>
   </div>
 </template>
 
 <script>
+import icon3 from './assets/icon3.jpg'
 export default {
   data(){
     return{
-      picked:true
+      picked:true,
+      nav:[
+        {
+          name:'read',
+          src:icon3,
+          link:'/'
+        },
+        {
+          name:'video',
+          src:require('./assets/icon1.jpg'),
+          link:'/video'
+        }, 
+        {
+          name:'news',
+          src:require('./assets/icon2.jpg'),
+          link:'/news'
+        },                
+      ]
     }
     
   },
   methods:{
-  chnagesMuen: function (e){
-        // console.log(e.target.parentNode.firstChild)
+  chnagesMuen: function (){
+        // this.picked = !this.picked
       }
     }
   }
@@ -52,6 +75,8 @@ export default {
 
 
 <style>
+@import './assets/reset';
+@import './assets/iconfont';
 #app {
   font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei;
   -webkit-font-smoothing: antialiased;
@@ -77,7 +102,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 .navImg{
   width: 1.5rem;
@@ -93,9 +118,6 @@ export default {
 #nav a.router-link-exact-active {
   color: #333;
 }
-a{
-  text-decoration: none
-}
 .fade-enter {
   opacity:0;
 }
@@ -109,8 +131,6 @@ a{
   opacity:0;
   transition:opacity .5s;
 }
-*{
-  box-sizing: border-box
-}
+
 </style>
 
