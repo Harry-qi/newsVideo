@@ -11,6 +11,7 @@ import categoryIndex from './views/categoryIndex'
 import categoryAll from './views/categoryAll'
 import categoryAuthor from './views/categoryAuthor'
 import categoryAlbum from './views/categoryAlbum'
+import AllCategory from './views/AllCategory'
 Vue.use(Router)
 
 export default new Router({
@@ -56,23 +57,28 @@ export default new Router({
       component: categoryDetail,
       children:
         [{
-          path: '/categoryIndex',
+          path: '/categoryDetail/:id/categoryIndex',
           name: 'categoryIndex',
           component: categoryIndex
         },{
-          path: '/categoryAll',
+          path: '/categoryDetail/:id/categoryAll',
           name: 'categoryAll',
           component: categoryAll          
         },{
-          path: '/categoryAuthor',
+          path: '/categoryDetail/:id/categoryAuthor',
           name: 'categoryAuthor',
           component: categoryAuthor          
         },{
-          path: '/categoryAlbum',
+          path: '/categoryDetail/:id/categoryAlbum',
           name: 'categoryAlbum',
           component: categoryAlbum          
         }
         ]
+    },
+    {
+      path: '/AllCategory',
+      name: 'AllCategory',
+      component: AllCategory
     },
   ]
 })

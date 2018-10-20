@@ -22,7 +22,23 @@
         </div>    
         <div class="popular">
             <h3>{{popular}}</h3>
-            <!-- <video src="" controls="controls" preload='none'></video> -->
+            <div class="popularBox" v-for="(item,index) in popularVideo" :key='index'>
+                <div class="popular-imgbox" >
+                    <img :src="item.data.cover.detail">
+                </div>
+                <div class="popular-info">
+                    <div>
+                        <img :src="item.data.author.icon" alt="">
+                    </div>
+                    <div>
+                        <h4>{{item.data.author.description}}</h4>
+                        <p>
+                            <span>{{item.data.author.name}} &nbsp;&nbsp;/&nbsp;&nbsp; </span>
+                            <span>#{{item.data.category}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
 </template>
@@ -36,6 +52,7 @@ export default {
             popular:'',
             show:true,
             recentlyVideo:[],
+            popularVideo:[],
             swiperOption: {
                 direction : 'horizontal',
                 slidesPerView : 1.08,
@@ -52,6 +69,11 @@ export default {
             console.log(res.data.itemList)
             this.recently = res.data.itemList[0].data.header.title
             this.recentlyVideo = res.data.itemList[0].data.itemList
+            this.popular = res.data.itemList[1].data.text
+            let popularVideo = res.data.itemList.filter(function(element){
+                return element.type=="video"
+            })
+            this.popularVideo = popularVideo
         })
     }
 }
@@ -91,12 +113,14 @@ export default {
     }
 
 }
-.recently-info{
+.recently-info,.popular-info{
     display: flex;
     flex-direction: row;
     align-items: center;
+    height: 50px;
     div:first-child{
-        width: 90px;
+        width: 40px;
+        height: 40px;
         img{
             width: 100%;
             height: auto;
@@ -110,8 +134,7 @@ export default {
             overflow:hidden;
             text-overflow:ellipsis;
             white-space:nowrap;
-            height: 25px;
-            line-height: 25px;
+            line-height: 18px;
             font-size: 16px;
             font-weight: bold;
         }
@@ -120,6 +143,25 @@ export default {
             font-size: 14px;
         }
 
+    }
+}
+.popular{
+  padding:10px;
+}
+.popularBox{
+  position: relative;
+  width: 100%;
+  padding:0 10px 0;
+  margin-top: 10px;
+    .popular-imgbox{
+        width: 100%;
+        img{
+            width: 100%;
+            height: 188px;
+        }
+    }
+    .popular-info{
+        height: 50px;
     }
 }
 </style>

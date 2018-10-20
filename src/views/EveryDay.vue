@@ -96,7 +96,8 @@ export default {
 }
 .imgBox span{
     margin-top: 10px;
-    color: #444
+    color: #444;
+    font-size: 16px;
 }
 .everyday img{
     width: 100%;
@@ -108,7 +109,7 @@ export default {
     position: relative;
 }
 .everyday h1 {
-    font-size: 16px;
+    font-size: 21px;
     font-weight: bold;
     text-align: center;
     line-height: 35px;
@@ -144,6 +145,7 @@ export default {
     text-align: center;
     width: 100px;
     height: 20px;
+    line-height: 20px;
     border: 1px solid #1a1a1a;
     border-radius: 25px;
     margin: 20px auto 100px;

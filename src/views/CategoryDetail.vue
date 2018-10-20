@@ -10,16 +10,16 @@
        <nav class="category-nav">
            <ul>
                <li>
-                    <router-link to="/categoryIndex" class="navLink">首页</router-link>
+                    <router-link :to="{name:'categoryIndex'}" class="navLink">首页</router-link>
                </li>   
                <li>
-                    <router-link to="/categoryAll" class="navLink">全部</router-link>               
+                    <router-link :to="{name:'categoryAll'}" class="navLink">全部</router-link>               
                </li> 
                <li>
-                    <router-link to="/categoryAuthor" class="navLink">作者</router-link>              
+                    <router-link :to="{name:'categoryAuthor'}" class="navLink">作者</router-link>              
                </li>  
                <li>
-                    <router-link to="/categoryAlbum" class="navLink">专辑</router-link>              
+                    <router-link :to="{name:'categoryAlbum'}" class="navLink">专辑</router-link>              
                </li>                                     
            </ul>
        </nav>
@@ -46,7 +46,7 @@ export default {
             url: '/videoapi/api/v4/categories/detail/tab?id='+this.$route.params.id
         })
         .then((res)=>{
-            // console.log(res.data)
+            console.log(res.data)
             this.headerImage = res.data.categoryInfo.headerImage
             this.tabInfo = res.data.tabInfo
             this.description = res.data.categoryInfo.description

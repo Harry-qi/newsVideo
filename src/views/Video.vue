@@ -13,7 +13,7 @@
         <h2 class="categoryH">热门分类</h2>
         <ul class="category">
             <li v-for="(categoryItem, index) in category" :key="index">
-                <router-link :to="{name:'categoryDetail',params:{id:categoryItem.id}}">
+                <router-link :to="{name:'categoryIndex',params:{id:categoryItem.id}}">
                     <div class="category-img-container">
                         <img :src="categoryItem.bgPicture" alt="">
                     </div>
@@ -26,7 +26,7 @@
             </li>
         </ul>
         <div class="category-more-link-box">
-            <router-link to="allCategory" class="category-more-link">
+            <router-link to="AllCategory" class="category-more-link">
                 <span>查看全部分类</span>
                 <span>&gt;</span>
             </router-link>

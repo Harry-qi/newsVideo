@@ -19,16 +19,16 @@ export default {
             popular:''
         }
     },
-    // mounted(){
-    //     this.$axios({
-    //         methods:'get',
-    //         url:'/videoapi/api/v4/categories/detail/index?id=8'
-    //     })
-    //     .then((res)=>{
-    //         console.log(res.data.itemList)
-    //         // this.recently = res.data.itemList[0].data.header.name
-    //     })
-    // }
+    mounted(){
+        this.$axios({
+            methods:'get',
+            url:'/videoapi/api/v4/categories/detail/pgcs?id=36'
+        })
+        .then((res)=>{
+            console.log(res.data.itemList)
+            // this.recently = res.data.itemList[0].data.header.name
+        })
+    }
 }
 </script>
 <style scoped>
