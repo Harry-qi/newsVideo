@@ -1,14 +1,14 @@
 <template>
   <div class="video" @scroll.native="scrollHandler">
         <!-- 轮播图 -->
-        <swiper :options="swiperOption" ref="mySwiper" class="swiper">
-            <!-- slides -->
-            <swiper-slide v-for="(item,index) in horizontalScrollCard" :key="index" class="swiperSlide">
-                <img :src="item.data.image" alt="">
-            </swiper-slide>
-            <!-- Optional controls -->
-            <div class="swiper-pagination"  slot="pagination"></div>
-        </swiper>
+            <swiper :options="swiperOption" ref="mySwiper" class="swiper">
+                <!-- slides -->
+                <swiper-slide v-for="(item,index) in horizontalScrollCard" :key="index" class="swiperSlide">
+                    <img :src="item.data.image" alt="">
+                </swiper-slide>
+                <!-- Optional controls -->
+                <div class="swiper-pagination"  slot="pagination"></div>
+            </swiper>
         <!-- 热门分类 -->
         <h2 class="categoryH">热门分类</h2>
         <ul class="category">
@@ -61,13 +61,12 @@
 </template>
 
 <script>
-import Title from '../components/Title'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
   data(){
     return {
-        addDate: 1,
+        addDate: 2,
         allvideo: [],
         alltextHeader:[],
         videoCollectionWithCover:[],
@@ -81,12 +80,11 @@ export default {
         swiperOption: {
           direction : 'horizontal',
           slidesPerView : 1.07,
-          spaceBetween : 10,
+          spaceBetween : 4,
         }
     }
   },
    components:{
-     Title,
      swiper,
      swiperSlide
    },
@@ -113,7 +111,7 @@ export default {
             let preDate  = new Date(curDate.getTime() - 24*60*60*1000*(this.addDate)).getTime();
             this.$axios({
                 method: "GET",
-                url: "/videoapi/api/v4/tabs/selected?date="+preDate+"&num=2&page=2"
+                url: "/videoapi/api/v4/tabs/selected?date="+preDate+"&num=1&page=1"
             }).then((res=>{
                 let video = res.data.itemList.filter(function(element){
                     return element.type == "video"
@@ -159,9 +157,8 @@ export default {
             //视频数据      
             this.$axios({
                 method:"get",
-                url:"/videoapi/api/v4/tabs/selected?date="+this.todayDate+"&num=2&page=1"
+                url:"/videoapi/api/v4/tabs/selected?date="+this.todayDate+"&num=1&page=1"
             }).then((res)=>{
-                // console.log(res.data)
                 this.allvideo = res.data.itemList.filter(function(element){
                     return element.type == "video"
                 })
@@ -189,14 +186,14 @@ export default {
 
 <style scoped>
 .video{
-    margin: 10px 0 90px 10px;
+    margin: 10px 0 90px 0px;
 }
 .videoContainer{
-  padding:10px 2px 2px 2px;
   border: 1px solid #eee;
   padding-top: 20px;
   position: relative;
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
 }
 .videoContainer img{
   width: 100%;
@@ -295,6 +292,9 @@ export default {
     opacity: 1;
   }
 }
+.swiper .swiperSlide:first-child{
+    padding-left: 10px;
+}
 .swiperSlide img{
     width: 100%;
 }
@@ -303,6 +303,10 @@ export default {
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
+    padding-left:10px;
+}
+.category{
+    padding-left: 10px;
 }
 .category li a{
     width: 100%;

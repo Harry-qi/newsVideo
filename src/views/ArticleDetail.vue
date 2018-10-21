@@ -12,9 +12,6 @@
 <script>
 export default {
     name:"articledetail",
-    props:{
-      fulldate: String  
-    },
     data(){
         return{
             title:'',
@@ -38,12 +35,16 @@ export default {
 }
 </script>
 
-<style scoped>
-.articledetail h1{
-    font-size: 21px;
-    text-align: center;
-    line-height: 30px;
-    margin: 10px 0 0;
+<style scoped lang="scss">
+.articledetail{
+    padding-left: 10px;
+    padding-right: 10px;
+    h1{
+        font-size: 21px;
+        text-align: center;
+        line-height: 30px;
+        margin: 10px 0 0;
+    }
 }
 .articledetail span{
     display: block;
@@ -55,6 +56,7 @@ export default {
     text-indent: 2rem;
     line-height: 30px;
     margin-bottom: 100px;
+    font-size: 16px;
 }
 </style>
 

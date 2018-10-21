@@ -16,10 +16,10 @@
         <span class="author">{{author}}</span>
         <p class="digest">{{digest}}</p>
             <router-link :to="{name:'articledetail',params:{date:fullDate}}">   
-                <span class="more" :fulldate="fullDate">more...</span>
+                <span class="more">more...</span>
             </router-link>
         <router-link :to="{name:'articledetail',params:{date:prefulldate}}">
-            <span class="pre" :fulldate='prefulldate'>昨日佳文</span>
+            <span class="pre">昨日佳文</span>
         </router-link>
     </div>
 </template>
@@ -126,6 +126,12 @@ export default {
     padding: 10px;
     color: #3d464d;
     text-indent: 2rem;
+    /* 多行文本溢出显示省略号 */
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 .digest:after{
     content: "...";
@@ -148,8 +154,9 @@ export default {
     line-height: 20px;
     border: 1px solid #1a1a1a;
     border-radius: 25px;
-    margin: 20px auto 100px;
-    color: #1a1a1a
+    margin: 20px auto 60px;
+    color: #1a1a1a;
+    font-size: 14px;
 }
 /* loading图*/
 

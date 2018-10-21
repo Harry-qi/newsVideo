@@ -27,9 +27,9 @@
                 </div>
             </router-link> -->
             <router-link :to="item.link" v-for="(item,index) in nav" :key="index">
-                <div class="navBox" @click="chnagesMuen">
-                  <img v-if="picked" :src="item.src" class="navImg">
-                  <!-- <img v-else src="../src/assets/icon33.jpg" class="navImg"> -->
+                <div class="navBox" @click="chnagesMuen(index)">
+                  <img v-if="current!==index" :src="item.src" class="navImg">
+                  <img v-if='current ==index' :src="item.activeSrc" class="navImg">
                   <span class="navItem">{{item.name}}</span>
                 </div>
             </router-link>            
@@ -39,25 +39,27 @@
 </template>
 
 <script>
-import icon3 from './assets/icon3.jpg'
 export default {
   data(){
     return{
-      picked:true,
+      current:0,
       nav:[
         {
           name:'read',
-          src:icon3,
+          src:require('./assets/icon1.jpg'),
+          activeSrc:require('./assets/activeIcon1.jpg'),
           link:'/'
         },
         {
           name:'video',
-          src:require('./assets/icon1.jpg'),
+          src:require('./assets/icon2.jpg'),
+          activeSrc:require('./assets/activeIcon2.jpg'),
           link:'/video'
         }, 
         {
           name:'news',
-          src:require('./assets/icon2.jpg'),
+          src:require('./assets/icon3.jpg'),
+          activeSrc:require('./assets/activeIcon3.jpg'),
           link:'/news'
         },                
       ]
@@ -65,8 +67,8 @@ export default {
     
   },
   methods:{
-  chnagesMuen: function (){
-        // this.picked = !this.picked
+  chnagesMuen: function (index){
+        this.current = index
       }
     }
   }
@@ -74,9 +76,9 @@ export default {
 </script>
 
 
-<style>
-@import './assets/reset';
-@import './assets/iconfont';
+<style lang="scss">
+@import './assets/reset.css';
+@import './assets/iconfont.css';
 #app {
   font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei;
   -webkit-font-smoothing: antialiased;
@@ -103,6 +105,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 42px;
+  height: 60px;
 }
 .navImg{
   width: 1.5rem;
