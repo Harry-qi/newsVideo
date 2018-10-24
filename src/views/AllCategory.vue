@@ -106,13 +106,13 @@ export default {
   clear: both;
 }
 .theEnd{
-        text-align: center;
-        line-height: 30px;
-        margin-top: 40px;
-        font-family: 'Raleway', sans-serif;
-        color: #333;
-        font-size: 21px;
-        font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 40px;
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    font-size: 21px;
+    font-weight: bold;
 }
 </style>
 

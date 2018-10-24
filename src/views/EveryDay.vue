@@ -154,7 +154,7 @@ export default {
     line-height: 20px;
     border: 1px solid #1a1a1a;
     border-radius: 25px;
-    margin: 20px auto 60px;
+    margin: 20px auto 70px;
     color: #1a1a1a;
     font-size: 14px;
 }

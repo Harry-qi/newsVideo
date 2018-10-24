@@ -1,6 +1,7 @@
 <template>
     <div class="categoryIndex">
-        <div class="recently">
+        <div class="error" v-show="error">接口报错</div>
+        <div class="recently" v-show="!error">
             <h3>{{recently}}</h3>
             <swiper :options="swiperOption" ref="mySwiper" class="swiper">
                 <swiper-slide v-for="(item,index) in recentlyVideo" :key="index" class="video-box">
@@ -20,7 +21,7 @@
                 </swiper-slide>
             </swiper>
         </div>    
-        <div class="popular">
+        <div class="popular" v-show="!error">
             <h3>{{popular}}</h3>
             <div class="popularBox" v-for="(item,index) in popularVideo" :key='index'>
                 <div class="popular-imgbox" >
@@ -57,26 +58,37 @@ export default {
                 direction : 'horizontal',
                 slidesPerView : 1.08,
                 spaceBetween : 10,
-            }
+            },
+            error:false
         }
     },
-    mounted(){
+    created(){
         this.$axios({
             methods:'get',
             url:'/videoapi/api/v4/categories/detail/index?id=8'
         })
         .then((res)=>{
-            console.log(res.data.itemList)
-            this.recently = res.data.itemList[0].data.header.title
-            this.recentlyVideo = res.data.itemList[0].data.itemList
-            this.popular = res.data.itemList[1].data.text
+            let resData = res.data.itemList[0].data
+            this.recently = resData.header.title
+            this.recentlyVideo = resData.itemList
+            this.popular = resData.text
             let popularVideo = res.data.itemList.filter(function(element){
                 return element.type=="video"
             })
             this.popularVideo = popularVideo
+            let someError = popularVideo.some=(item,index,arr)=>{
+                return item.data.author.icon===null
+            }
+            if(someError){
+               this.error = true 
+               console.log(11111) 
+            }else{
+                console.log("else")
+            }
         })
-        .catch(function (error) {
-            alert(error)
+        .catch((error)=>{
+           this.error = true  
+           console.log(error)  
         });
     }
 }
@@ -166,6 +178,10 @@ export default {
     .popular-info{
         height: 50px;
     }
+}
+.error{
+    text-align: center;
+    font-size: 14px;
 }
 </style>
 

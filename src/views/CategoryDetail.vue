@@ -18,9 +18,9 @@
                <li>
                     <router-link :to="{name:'categoryAuthor'}" class="navLink">作者</router-link>              
                </li>  
-               <li>
+               <!-- <li>
                     <router-link :to="{name:'categoryAlbum'}" class="navLink">专辑</router-link>              
-               </li>                                     
+               </li>                                      -->
            </ul>
        </nav>
        <router-view></router-view>
@@ -46,7 +46,6 @@ export default {
             url: '/videoapi/api/v4/categories/detail/tab?id='+this.$route.params.id
         })
         .then((res)=>{
-            console.log(res.data)
             this.headerImage = res.data.categoryInfo.headerImage
             this.tabInfo = res.data.tabInfo
             this.description = res.data.categoryInfo.description

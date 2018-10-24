@@ -1,6 +1,6 @@
 <template>
     <div class="VideoDetail" >
-        <!-- <video :src=""></video> -->
+        <video :src="videoUrl" class="video" controls="controls" autoplay="autoplay"></video>
     </div>
 </template>
 
@@ -9,24 +9,24 @@ export default {
     name:"VideoDetail",
     data(){
         return{
+            videoUrl:"http://baobab.kaiyanapp.com/api/v1/playUrl?vid="+this.$route.params.id+"&resourceType=video&editionType=default&source=aliyun&f=iphone&u=&vc=0"
         }
     },
     mounted(){
         this.$axios({
-            method:"get",
-            baseURL:"/api",
-            url:"/videoapi/api/v4/tabs/selected"+this.$route.params.date
+            methods: "GET",
+            url: "/videoapi/api/v4/video/related?id=45897"
+        }).then((res)=>{
+            console.log(res.data)
         })
-        .then((res)=>{
-            
-        })
-        
     }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.video{
+    width:100%;
+}
 </style>
 
 

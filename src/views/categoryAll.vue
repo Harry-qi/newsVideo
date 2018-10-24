@@ -13,14 +13,14 @@ export default {
         }
     },
     mounted(){
-        // this.$axios({
-        //     methods:'get',
-        //     url:'/videoapi/api/v4/categories/videoList?id=36'
-        // })
-        // .then((res)=>{
-        //     console.log(res.data)
-        //     // this.recently = res.data.itemList[0].data.header.name
-        // })
+        this.$axios({
+            methods:'get',
+            url:'/videoapi/api/v4/categories/videoList?id=14'
+        })
+        .then((res)=>{
+            console.log(res.data)
+            // this.recently = res.data.itemList[0].data.header.name
+        })
     }
 }
 </script>
