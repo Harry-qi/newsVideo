@@ -12,6 +12,7 @@ import categoryAll from './views/categoryAll'
 import categoryAuthor from './views/categoryAuthor'
 import categoryAlbum from './views/categoryAlbum'
 import AllCategory from './views/AllCategory'
+import search from './views/Search'
 Vue.use(Router)
 
 export default new Router({
@@ -79,6 +80,11 @@ export default new Router({
       path: '/AllCategory',
       name: 'AllCategory',
       component: AllCategory
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search
     },
   ]
 })

@@ -10,7 +10,13 @@
                 <div class="swiper-pagination"  slot="pagination"></div>
             </swiper>
         <!-- 热门分类 -->
-        <h2 class="categoryH">热门分类</h2>
+        <div class="categoryH">
+            <h2 >热门分类</h2>
+            <router-link to="/search">
+                <img src="../assets/search.png" alt="">
+            </router-link>
+        </div>
+
         <ul class="category">
             <li v-for="(categoryItem, index) in category" :key="index">
                 <router-link :to="{name:'categoryIndex',params:{id:categoryItem.id}}">
@@ -184,7 +190,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .video{
     margin: 10px 0 90px 0px;
 }
@@ -304,6 +310,15 @@ export default {
     margin-top: 20px;
     margin-bottom: 10px;
     padding-left:10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    img{
+        width:20px;
+        height: 20px;
+        margin-right: 20px;
+    }
 }
 .category{
     padding-left: 10px;
@@ -353,6 +368,10 @@ export default {
 }
 .category-more-link span:last-child{
     color: #eee
+}
+.search{
+    width: 40px;
+    height: 40px;
 }
 </style>
 
