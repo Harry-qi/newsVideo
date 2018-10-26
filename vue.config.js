@@ -1,4 +1,5 @@
 module.exports = {
+  baseUrl: './',
   devServer:{
         // 手机端调试
         host:'192.168.137.1',

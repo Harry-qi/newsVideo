@@ -1,5 +1,6 @@
 <template>
     <div class="search">
+        <!-- 搜索框 -->
         <div class="searchBox">
             <div class="inputBox">
                 <img src="../assets/search.png" alt="">
@@ -12,18 +13,21 @@
                 <span >取消</span>
             </router-link>
         </div>
+        <!-- 搜索历史 -->
         <div class="history" v-show="showHistory">
             <div class="title">
                 <h2>搜索历史</h2>
                 <span @click="delHistory()">删除</span>
             </div>
-            <ul>
+            <ul @click="gethistoryWord">
                 <li v-for="(item,index) in historyWord" :key="index">
                     {{item}}
                 </li>
             </ul>
         </div>
+        <!-- 搜索结果 -->
         <div class="searchResult" v-show="showResult">
+            <p>共找到{{searchNum}}条数据</p>
             <ul>
                 <li v-for="(item,index) in searchList" :key="index">
                     <router-link :to="{name:'videoDetail',params:{id:item.data.id}}">
@@ -37,6 +41,7 @@
 </template>
 
 <script>
+import jsonp from 'jsonp'
 export default {
     data(){
         return{
@@ -45,7 +50,8 @@ export default {
             showHistory:true,
             showResult:false,
             showDel:false,
-            historyWord:[]
+            historyWord:[],
+            searchNum:0
         }
     },
     methods:{
@@ -54,36 +60,74 @@ export default {
                 methods:'GET',
                 url:"/videoapi/api/v1/search?num=10&query="+this.searchValue +"&start=10"
             }).then((res)=>{
-                console.log(res.data.itemList)
                 this.showResult = true
                 this.showDel = true
                 this.showHistory = false
                 this.searchList = res.data.itemList
-                this.historyWord.push(this.searchValue)
-                localStorage.setItem('historyWord', this.historyWord);
+                this.searchNum = res.data.count
+                this.debounce(this.historyWord.push(this.searchValue))
+                this.historyWord = [...new Set(this.historyWord)] //如果用户多次输入同一个词，这里进行去重处理
+                localStorage.setItem('historyWord', this.historyWord);//将输入的词，存储到本地
             })
         },
+        // 删除输入的内容
         del(){
             this.searchValue = ''
             this.showDel = false
             this.showResult = false
             this.showHistory = true
         },
+        // 删除历史
         delHistory(){
             this.historyWord.length = 0
             this.showDel = false
             this.showHistory = false
             localStorage.removeItem('historyWord');
+        },
+        // 点击搜索历史里面的词，进行搜索
+        gethistoryWord(e){
+            if(e.target.tagName=='LI'){
+                this.searchValue =  e.target.outerText
+                this.getValue()
+            }
+        },
+        debounce(fn, delay){
+            // 持久化一个定时器
+            let timer = null
+            
+            // 闭包函数可以访问timer
+            return function(){
+                // 通过 this 和 arguments 获得函数的作用域和参数
+                let context = this
+                let args = arguments
+                // 如果事件被触发，清除timer并重新开始计时
+                clearTimeout(timer)
+                timer = setTimeout(function() {
+                    fn.apply(context, args)
+                }, delay)
+            }
         }
     },
     mounted(){
-        let localHistoryWord = localStorage.getItem(`historyWord`);
-        if(localHistoryWord==null){
-            localHistoryWord = ''
+        let localHistoryWord = localStorage.getItem("historyWord") //得到的是一个对象
+        if(localHistoryWord==null||localHistoryWord==''){
+            localHistoryWord = []
+        }else{
+            this.historyWord=localHistoryWord.split(",") 
         }
-        let localHistoryWordArray = localHistoryWord.split(',')
-        this.historyWord=localHistoryWordArray
-        console.log(localHistoryWordArray)
+
+    },
+    watch:{
+        searchValue: function(val,oldVal){
+            if(val==''){
+                this.showResult = false
+                this.showDel = false
+                this.showHistory = true
+            }
+            // else{
+            //     this.debounce(this.getValue(),50)
+            // }
+        },
     }
 }
 </script>
@@ -173,16 +217,22 @@ export default {
         line-height: 30px
     }
 }
-.searchResult ul{
-    margin-top: 20px;
-    padding-left: 10px;
-    li{
-        height: 40px;
-        line-height: 20px;
-        font-size: 16px;
-        a{
-            color: #333;
-            font-weight: bolder
+.searchResult {
+    padding: 10px;
+    p{
+        text-align: left;
+        margin-top: 10px;
+    }
+    ul{
+        margin-top: 20px;
+        li{
+            height: 40px;
+            line-height: 20px;
+            font-size: 16px;
+            a{
+                color: #333;
+                font-weight: bolder
+            }
         }
     }
 }
